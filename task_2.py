@@ -6,6 +6,13 @@ import scipy.integrate as spi
 def f(x):
     return x ** 2
 
+# Метод Монте-Карло для обчислення інтегралу
+def monte_carlo_integration(func, a, b, num_points=10000):
+    x_random = np.random.uniform(a, b, num_points)
+    y_random = func(x_random)
+    integral_mc = (b - a) * np.mean(y_random)
+    return integral_mc
+
 # Межі інтегрування
 a = 0
 b = 2
@@ -14,11 +21,8 @@ b = 2
 result_quad, error = spi.quad(f, a, b)
 print("Інтеграл (quad): ", result_quad)
 
-# Метод Монте-Карло
-N = 10000  # Кількість випадкових точок
-x_random = np.random.uniform(a, b, N)
-y_random = f(x_random)
-integral_mc = (b - a) * np.mean(y_random)
+# Обчислення інтегралу методом Монте-Карло
+integral_mc = monte_carlo_integration(f, a, b)
 print("Інтеграл (Монте-Карло): ", integral_mc)
 
 # Графічне зображення
